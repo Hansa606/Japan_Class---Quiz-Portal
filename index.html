@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ひらがな絵クイズ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kosugi Maru', 'Noto Sans JP', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(255, 105, 135, 0.15);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b81 0%, #ff8fa3 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 40px 30px;
+        }
+
+        .question {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #fff9fb;
+            border-radius: 12px;
+            border-left: 5px solid #ff6b81;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 107, 129, 0.2);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #ff6b81;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .question-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .question-image:hover {
+            transform: scale(1.05);
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option {
+            padding: 16px 20px;
+            background: white;
+            border: 2px solid #ffe0e6;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Kosugi Maru', sans-serif;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .option:hover::before {
+            left: 100%;
+        }
+
+        .option:hover {
+            border-color: #ff6b81;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 129, 0.25);
+        }
+
+        .option.selected {
+            background: #ff6b81;
+            color: white;
+            border-color: #ff6b81;
+        }
+
+        .option.correct {
+            background: #51cf66;
+            color: white;
+            border-color: #51cf66;
+            animation: pulse 0.6s ease;
+        }
+
+        .option.wrong {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .submit-btn {
+            display: block;
+            width: 200px;
+            margin: 40px auto 20px;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #ff6b81 0%, #ff8fa3 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 129, 0.35);
+            font-family: 'Kosugi Maru', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 129, 0.45);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: none;
+            font-family: 'Kosugi Maru', sans-serif;
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score {
+            color: #ff6b81;
+            font-size: 2rem;
+            margin: 15px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #fff0f3;
+            color: #ff6b81;
+            font-size: 0.9rem;
+            font-family: 'Kosugi Maru', sans-serif;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #ffe0e6;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b81, #ff8fa3);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@400;700&display=swap');
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇯🇵 ひらがな絵クイズ</h1>
+            <p>絵を見て、ひらがなで答えよう！</p>
+        </header>
+
+        <div class="quiz-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <form id="quizForm">
+                <!-- Question 1 -->
+                <div class="question">
+                    <div class="question-number">1</div>
+                    <img src="https://via.placeholder.com/400x300/FF6B81/FFFFFF?text=絵1" alt="問題1の絵" class="question-image">
+                    <p><strong>この絵は何を表していますか？</strong></p>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a">
+                            せいと が せんせい に しつもん を する
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b">
+                            せんせい が じゅぎょう を おしえる
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c" data-correct>
+                            でんわ で なにか を みせる せいと
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question">
+                    <div class="question-number">2</div>
+                    <img src="https://via.placeholder.com/400x300/FF8FA3/FFFFFF?text=絵2" alt="問題2の絵" class="question-image">
+                    <p><strong>ここで何が起こっていますか？</strong></p>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a">
+                            せいと が べんきょう する
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b" data-correct>
+                            せんせい が こくばん に かく
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c">
+                            じゅぎょう で はなす
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question">
+                    <div class="question-number">3</div>
+                    <img src="https://via.placeholder.com/400x300/FFB3C1/FFFFFF?text=絵3" alt="問題3の絵" class="question-image">
+                    <p><strong>この状況は何ですか？</strong></p>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a">
+                            せいと が ねている
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b">
+                            せんせい が きかい を つかう
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c" data-correct>
+                            ラップトップ から おと が でる
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question">
+                    <div class="question-number">4</div>
+                    <img src="https://via.placeholder.com/400x300/FFC6D3/FFFFFF?text=絵4" alt="問題4の絵" class="question-image">
+                    <p><strong>先生は何をしていますか？</strong></p>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a">
+                            きょうしつ に はいる
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b" data-correct>
+                            しりょう を もってくる
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c">
+                            せいと を しかる
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question">
+                    <div class="question-number">5</div>
+                    <img src="https://via.placeholder.com/400x300/FF9BB3/FFFFFF?text=絵5" alt="問題5の絵" class="question-image">
+                    <p><strong>ここで何が起こっていますか？</strong></p>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="timeout" data-correct>
+                            しけん しけん もんだい を くばる
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b">
+                            せいと が かく
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c">
+                            せんせい が じゅぎょう を よむ
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question">
+                    <div class="question-number">6</div>
+                    <img src="https://via.placeholder.com/400x300/FF85A1/FFFFFF?text=絵6" alt="問題6の絵" class="question-image">
+                    <p><strong>生徒たちは何をしていますか？</strong></p>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q6" value="a">
+                            しつもん を する
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="b">
+                            きょうしつ を でる
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="c" data-correct>
+                            て を あげて こたえる
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">こたえ を おくる</button>
+            </form>
+
+            <div class="result" id="result">
+                <p>あなたの点数：</p>
+                <div class="score" id="score">0/6</div>
+                <p id="message"></p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 ひらがな絵クイズ | すべての権利を保有</p>
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('quizForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const result = document.getElementById('result');
+        const scoreElement = document.getElementById('score');
+        const messageElement = document.getElementById('message');
+        const progress = document.getElementById('progress');
+        
+        let selectedCount = 0;
+        const totalQuestions = 6;
+
+        form.addEventListener('change', function(e) {
+            if (e.target.type === 'radio') {
+                const questionName = e.target.name;
+                const questionDiv = e.target.closest('.question');
+                const options = questionDiv.querySelectorAll('.option');
+                
+                options.forEach(opt => {
+                    opt.classList.remove('selected');
+                    if (opt.querySelector('input').checked) {
+                        opt.classList.add('selected');
+                    }
+                });
+
+                selectedCount = document.querySelectorAll('input[type="radio"]:checked').length;
+                updateProgress();
+                submitBtn.disabled = selectedCount < totalQuestions;
+            }
+        });
+
+        function updateProgress() {
+            const percentage = (selectedCount / totalQuestions) * 100;
+            progress.style.width = percentage + '%';
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let correct = 0;
+            const questions = document.querySelectorAll('.question');
+            
+            questions.forEach((q, index) => {
+                const selected = q.querySelector('input[type="radio"]:checked');
+                const options = q.querySelectorAll('.option');
+                
+                options.forEach(opt => {
+                    opt.classList.remove('selected');
+                    const input = opt.querySelector('input');
+                    if (input.hasAttribute('data-correct')) {
+                        opt.classList.add('correct');
+                        if (input.checked) correct++;
+                    } else if (input.checked) {
+                        opt.classList.add('wrong');
+                    }
+                });
+            });
+
+            const percentage = Math.round((correct / totalQuestions) * 100);
+            scoreElement.textContent = `${correct}/${totalQuestions}`;
+            
+            if (percentage === 100) {
+                messageElement.textContent = '🎉 すばらしい！ ぜんぶ せいかい です！';
+                messageElement.style.color = '#51cf66';
+            } else if (percentage >= 80) {
+                messageElement.textContent = '👏 とても じょうず です！';
+                messageElement.style.color = '#51cf66';
+            } else if (percentage >= 60) {
+                messageElement.textContent = '👍 いい ですよ！ もう すこし です。';
+                messageElement.style.color = '#ffc107';
+            } else if (percentage >= 40) {
+                messageElement.textContent = '🤔 もう すこし れんしゅう しましょう。';
+                messageElement.style.color = '#fd7e14';
+            } else {
+                messageElement.textContent = '💪 もう いちど やって みましょう！ できますよ！';
+                messageElement.style.color = '#ff6b6b';
+            }
+
+            result.classList.add('show');
+            submitBtn.style.display = 'none';
+            window.scrollTo(0, result.offsetTop - 100);
+        });
+
+        submitBtn.disabled = true;
+    </script>
+</body>
+</html>
