@@ -115,173 +115,177 @@
 <body>
 <div class="container">
     <header>
-        <h1>ひらがな絵クイズ</h1>
-        <p>絵を見て、ひらがなで答えよう！</p>
+        <h1>Japan starter book quiz portal</h1>
+        <p>Look at the picture and answer it!</p>
     </header>
 
     <div class="quiz-container">
         <div class="progress-bar"><div class="progress" id="progress"></div></div>
 
         <form id="quizForm">
-            <!-- 旧6問はそのまま保持（画像パスは img/X_00/... のまま） -->
-            <!-- Question 1 -->
-            <div class="question">
-                <div class="question-number">1</div>
-                <img src="img/X_00/X_00_0_01_shusseki.png" alt="先生が生徒を叱る" class="question-image">
-                <p><strong>この絵は何を表していますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q1" value="a">せいと が せんせい に しつもん を する</label>
-                    <label class="option"><input type="radio" name="q1" value="b">せんせい が じゅぎょう を おしえる</label>
-                    <label class="option"><input type="radio" name="q1" value="c" data-correct>せんせい が せいと を しかる</label>
-                </div>
-            </div>
+          <!-- ✅ QUESTION SECTION START -->
+<!-- Use inside <form id="quizForm"> -->
 
-            <!-- Question 2 -->
-            <div class="question">
-                <div class="question-number">2</div>
-                <img src="img/X_00/X_00_0_02_hajimemashoo.png" alt="先生が授業を始める" class="question-image">
-                <p><strong>ここで何が起こっていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q2" value="a">せいと が べんきょう する</label>
-                    <label class="option"><input type="radio" name="q2" value="b" data-correct>せんせい が じゅぎょう を はじめる</label>
-                    <label class="option"><input type="radio" name="q2" value="c">じゅぎょう で はなす</label>
-                </div>
-            </div>
+<!-- Question 1 -->
+<div class="question">
+    <div class="question-number">1</div>
+    <img src="img/X_00/X_00_0_01_shusseki.png" class="question-image">
+    <p><strong>この絵は何を表していますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q1" value="a">せいと が せんせい に しつもん を する</label>
+        <label class="option"><input type="radio" name="q1" value="b">せんせい が じゅぎょう を おしえる</label>
+        <label class="option"><input type="radio" name="q1" value="c" data-correct>せんせい が せいと を しかる</label>
+    </div>
+</div>
 
-            <!-- Question 3 -->
-            <div class="question">
-                <div class="question-number">3</div>
-                <img src="img/X_00/X_00_0_03_jugyoo.png" alt="生徒がプロジェクターを見る" class="question-image">
-                <p><strong>この状況は何ですか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q3" value="a">せいと が ねている</label>
-                    <label class="option"><input type="radio" name="q3" value="b">せんせい が きかい を つかう</label>
-                    <label class="option"><input type="radio" name="q3" value="c" data-correct>せいと が プロジェクター を みる</label>
-                </div>
-            </div>
+<!-- Question 2 -->
+<div class="question">
+    <div class="question-number">2</div>
+    <img src="img/X_00/X_00_0_02_hajimemashoo.png" class="question-image">
+    <p><strong>ここで何が起こっていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q2" value="a">せいと が べんきょう する</label>
+        <label class="option"><input type="radio" name="q2" value="b" data-correct>せんせい が じゅぎょう を はじめる</label>
+        <label class="option"><input type="radio" name="q2" value="c">じゅぎょう で はなす</label>
+    </div>
+</div>
 
-            <!-- Question 4 -->
-            <div class="question">
-                <div class="question-number">4</div>
-                <img src="img/X_00/X_00_0_04_yasumijikan.png" alt="生徒がページ3を見る" class="question-image">
-                <p><strong>先生は何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q4" value="a">きょうしつ に はいる</label>
-                    <label class="option"><input type="radio" name="q4" value="b" data-correct>ほん を よんで ページ さん を さす</label>
-                    <label class="option"><input type="radio" name="q4" value="c">せいと を しかる</label>
-                </div>
-            </div>
+<!-- Question 3 -->
+<div class="question">
+    <div class="question-number">3</div>
+    <img src="img/X_00/X_00_0_03_jugyoo.png" class="question-image">
+    <p><strong>この状況は何ですか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q3" value="a">せいと が ねている</label>
+        <label class="option"><input type="radio" name="q3" value="b">せんせい が きかい を つかう</label>
+        <label class="option"><input type="radio" name="q3" value="c" data-correct>せいと が プロジェクター を みる</label>
+    </div>
+</div>
 
-            <!-- Question 5 -->
-            <div class="question">
-                <div class="question-number">5</div>
-                <img src="img/X_00/X_00_0_05_hai-iie.png" alt="先生が答案を配る" class="question-image">
-                <p><strong>ここで何が起こっていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q5" value="a" data-correct>せんせい が しけん かもく を くばる</label>
-                    <label class="option"><input type="radio" name="q5" value="b">せいと が かく</label>
-                    <label class="option"><input type="radio" name="q5" value="c">せんせい が じゅぎょう を よむ</label>
-                </div>
-            </div>
+<!-- Question 4 -->
+<div class="question">
+    <div class="question-number">4</div>
+    <img src="img/X_00/X_00_0_04_yasumijikan.png" class="question-image">
+    <p><strong>先生は何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q4" value="a">きょうしつ に はいる</label>
+        <label class="option"><input type="radio" name="q4" value="b" data-correct>ほん を よんで ページ さん を さす</label>
+        <label class="option"><input type="radio" name="q4" value="c">せいと を しかる</label>
+    </div>
+</div>
 
-            <!-- Question 6 -->
-            <div class="question">
-                <div class="question-number">6</div>
-                <img src="img/X_00/X_00_0_06_kiite.png" alt="生徒が手を挙げて答える" class="question-image">
-                <p><strong>生徒たちは何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q6" value="a">しつもん を する</label>
-                    <label class="option"><input type="radio" name="q6" value="b">きょうしつ を でる</label>
-                    <label class="option"><input type="radio" name="q6" value="c" data-correct>て を あげて こたえる</label>
-                </div>
-            </div>
+<!-- Question 5 (✅ FIXED — changed 科目 → テスト) -->
+<div class="question">
+    <div class="question-number">5</div>
+    <img src="img/X_00/X_00_0_05_hai-iie.png" class="question-image">
+    <p><strong>ここで何が起こっていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q5" value="a" data-correct>せんせい が テスト を くばる</label>
+        <label class="option"><input type="radio" name="q5" value="b">せいと が かく</label>
+        <label class="option"><input type="radio" name="q5" value="c">せんせい が じゅぎょう を よむ</label>
+    </div>
+</div>
 
-            <!-- 新しい7問を追加 -->
-            <!-- Question 7 -->
-            <div class="question">
-                <div class="question-number">7</div>
-                <img src="img/X_00/X_00_0_07_itte.png" alt="先生が生徒を叱る（再）" class="question-image">
-                <p><strong>先生は何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q7" value="a">せんせい が じゅぎょう を おしえる</label>
-                    <label class="option"><input type="radio" name="q7" value="b" data-correct>せんせい が せいと を しかる</label>
-                    <label class="option"><input type="radio" name="q7" value="c">せいと が しつもん を する</label>
-                </div>
-            </div>
+<!-- Question 6 -->
+<div class="question">
+    <div class="question-number">6</div>
+    <img src="img/X_00/X_00_0_06_kiite.png" class="question-image">
+    <p><strong>生徒たちは何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q6" value="a">しつもん を する</label>
+        <label class="option"><input type="radio" name="q6" value="b">きょうしつ を でる</label>
+        <label class="option"><input type="radio" name="q6" value="c" data-correct>て を あげて こたえる</label>
+    </div>
+</div>
 
-            <!-- Question 8 -->
-            <div class="question">
-                <div class="question-number">8</div>
-                <img src="img/X_00/X_00_0_08_mite.png" alt="先生がプロジェクターを指す" class="question-image">
-                <p><strong>先生は何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q8" value="a">せんせい が きかい を つかう</label>
-                    <label class="option"><input type="radio" name="q8" value="b" data-correct>せんせい が プロジェクター の え を さす</label>
-                    <label class="option"><input type="radio" name="q8" value="c">せいと が ねている</label>
-                </div>
-            </div>
+<!-- Question 7 -->
+<div class="question">
+    <div class="question-number">7</div>
+    <img src="img/X_00/X_00_0_07_itte.png" class="question-image">
+    <p><strong>先生は何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q7" value="a">せんせい が じゅぎょう を おしえる</label>
+        <label class="option"><input type="radio" name="q7" value="b" data-correct>せんせい が せいと を しかる</label>
+        <label class="option"><input type="radio" name="q7" value="c">せいと が しつもん を する</label>
+    </div>
+</div>
 
-            <!-- Question 9 -->
-            <div class="question">
-                <div class="question-number">9</div>
-                <img src="img/X_00/X_00_0_09_sanpeeji.png" alt="生徒たちが手を挙げる" class="question-image">
-                <p><strong>生徒たちは何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q9" value="a">せいと が べんきょう する</label>
-                    <label class="option"><input type="radio" name="q9" value="b" data-correct>せいと が て を あげて こたえる</label>
-                    <label class="option"><input type="radio" name="q9" value="c">せいと が きょうしつ を でる</label>
-                </div>
-            </div>
+<!-- Question 8 -->
+<div class="question">
+    <div class="question-number">8</div>
+    <img src="img/X_00/X_00_0_08_mite.png" class="question-image">
+    <p><strong>先生は何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q8" value="a">せんせい が きかい を つかう</label>
+        <label class="option"><input type="radio" name="q8" value="b" data-correct>せんせい が プロジェクター の え を さす</label>
+        <label class="option"><input type="radio" name="q8" value="c">せいと が ねている</label>
+    </div>
+</div>
 
-            <!-- Question 10 -->
-            <div class="question">
-                <div class="question-number">10</div>
-                <img src="img/X_00/X_00_0_10_hanashite.png" alt="先生が答案を配る" class="question-image">
-                <p><strong>先生は何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q10" value="a" data-correct>せんせい が しけん かもく を くばる</label>
-                    <label class="option"><input type="radio" name="q10" value="b">せいと が かく</label>
-                    <label class="option"><input type="radio" name="q10" value="c">せんせい が じゅぎょう を よむ</label>
-                </div>
-            </div>
+<!-- Question 9 -->
+<div class="question">
+    <div class="question-number">9</div>
+    <img src="img/X_00/X_00_0_09_sanpeeji.png" class="question-image">
+    <p><strong>生徒たちは何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q9" value="a">せいと が べんきょう する</label>
+        <label class="option"><input type="radio" name="q9" value="b" data-correct>せいと が て を あげて こたえる</label>
+        <label class="option"><input type="radio" name="q9" value="c">せいと が きょうしつ を でる</label>
+    </div>
+</div>
 
-            <!-- Question 11 -->
-            <div class="question">
-                <div class="question-number">11</div>
-                <img src="img/X_00/X_00_0_11_yonde.png" alt="生徒が答案を書く" class="question-image">
-                <p><strong>生徒は何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q11" value="a">せいと が しつもん を する</label>
-                    <label class="option"><input type="radio" name="q11" value="b" data-correct>せいと が しけん を かく</label>
-                    <label class="option"><input type="radio" name="q11" value="c">せいと が ねている</label>
-                </div>
-            </div>
+<!-- Question 10 (✅ FIXED) -->
+<div class="question">
+    <div class="question-number">10</div>
+    <img src="img/X_00/X_00_0_10_hanashite.png" class="question-image">
+    <p><strong>先生は何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q10" value="a" data-correct>せんせい が テスト を くばる</label>
+        <label class="option"><input type="radio" name="q10" value="b">せいと が かく</label>
+        <label class="option"><input type="radio" name="q10" value="c">せんせい が じゅぎょう を よむ</label>
+    </div>
+</div>
 
-            <!-- Question 12 -->
-            <div class="question">
-                <div class="question-number">12</div>
-                <img src="img/X_00/X_00_0_12_kaite.png" alt="先生が本のページ3を指す" class="question-image">
-                <p><strong>先生は何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q12" value="a">せんせい が きょうしつ に はいる</label>
-                    <label class="option"><input type="radio" name="q12" value="b" data-correct>せんせい が ほん の ページ さん を さす</label>
-                    <label class="option"><input type="radio" name="q12" value="c">せいと を しかる</label>
-                </div>
-            </div>
+<!-- Question 11 -->
+<div class="question">
+    <div class="question-number">11</div>
+    <img src="img/X_00/X_00_0_11_yonde.png" class="question-image">
+    <p><strong>生徒は何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q11" value="a">せいと が しつもん を する</label>
+        <label class="option"><input type="radio" name="q11" value="b" data-correct>せいと が テスト を かく</label>
+        <label class="option"><input type="radio" name="q11" value="c">せいと が ねている</label>
+    </div>
+</div>
 
-            <!-- Question 13 -->
-            <div class="question">
-                <div class="question-number">13</div>
-                <img src="img/X_00/X_00_0_13_misete.png" alt="先生が答案を生徒に渡す" class="question-image">
-                <p><strong>先生は何をしていますか？</strong></p>
-                <div class="options">
-                    <label class="option"><input type="radio" name="q13" value="a">せんせい が じゅぎょう を おしえる</label>
-                    <label class="option"><input type="radio" name="q13" value="b" data-correct>せんせい が しけん かもく を わたす</label>
-                    <label class="option"><input type="radio" name="q13" value="c">せいと が しつもん を する</label>
-                </div>
-            </div>
+<!-- Question 12 -->
+<div class="question">
+    <div class="question-number">12</div>
+    <img src="img/X_00/X_00_0_12_kaite.png" class="question-image">
+    <p><strong>先生は何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q12" value="a">せんせい が きょうしつ に はいる</label>
+        <label class="option"><input type="radio" name="q12" value="b" data-correct>せんせい が ほん の ページ さん を さす</label>
+        <label class="option"><input type="radio" name="q12" value="c">せいと を しかる</label>
+    </div>
+</div>
 
-            <button type="submit" class="submit-btn" id="submitBtn">こたえ を おくる</button>
+<!-- Question 13 (✅ FIXED) -->
+<div class="question">
+    <div class="question-number">13</div>
+    <img src="img/X_00/X_00_0_13_misete.png" class="question-image">
+    <p><strong>先生は何をしていますか？</strong></p>
+    <div class="options">
+        <label class="option"><input type="radio" name="q13" value="a">せんせい が じゅぎょう を おしえる</label>
+        <label class="option"><input type="radio" name="q13" value="b" data-correct>せんせい が テスト を わたす</label>
+        <label class="option"><input type="radio" name="q13" value="c">せいと が しつもん を する</label>
+    </div>
+</div>
+
+<!-- ✅ QUESTION SECTION END -->
+
+
+            <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
         </form>
 
         <div class="result" id="result">
